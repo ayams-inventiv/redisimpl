@@ -48,7 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	@Cacheable(value = "employee_details_userId", key = "#userId")
+	@Cacheable(value = "employee_cache", key = "#userId")
 	// @Cacheable(value = "employee_cache", key = "#id")
 	//@Cacheable(value = "employee_cache_UserId", unless = "#result == null", key = "#userId")
 	//@CachePut("employee_cache")
@@ -63,7 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	//@Cacheable(value = "employee_cache_UserId", unless = "#result == null", key = "#userId")
-	@Cacheable(value = "employee_details_userId", key = "#userId")
+	@Cacheable(value = "employee_cache", key = "#userId")
 	public EmpDetails updateEmployeeDetails(Long userId, EmployeeDetailsDTO empDTO) {
 		Optional<EmpDetails> empStream = employeeDetailsRepos.findById(userId);
 		if (empStream.isPresent()) {
@@ -79,7 +79,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return null;
 	}
 
-	@CacheEvict(value = "employee_cache_UserId", key = "#userId")
+	@CacheEvict(value = "employee_cache", key = "#userId")
 	public void evictEmployeeCache(Long userId) {
 		log.info("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
 		log.info("::::::::::::::::::::::::evictAllEmployeeCache for Single User:::::::::::::::::::::::::::::::");
@@ -89,5 +89,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public void evictAllEmployeeCache() {
 		log.info("::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
 		log.info("::::::::::::::::::::::::evictAllEmployeeCache:::::::::::::::::::::::::::::::");
+	}
+
+	@Override
+	@CacheEvict(value = "employee_cache", key = "#userId")
+	public EmpDetails deleteEmployee(Long userId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -53,6 +54,16 @@ public class EmployeeController {
 	public ResponseEntity<Object> updateEmployeeDetails(@RequestParam Long userId,
 			@RequestBody EmployeeDetailsDTO employeeDetailsDTO) {
 		EmpDetails allEmployeeByUserId = employeeService.updateEmployeeDetails(userId, employeeDetailsDTO);
+		if (Objects.nonNull(allEmployeeByUserId)) {
+			return new ResponseEntity(allEmployeeByUserId, HttpStatus.OK);
+		} else {
+			return new ResponseEntity("USER_NOT_FOUND", HttpStatus.EXPECTATION_FAILED);
+		}
+	}
+	
+	@DeleteMapping("/employee")
+	public ResponseEntity<Object> updateEmployeeDetails(@RequestParam Long userId) {
+		EmpDetails allEmployeeByUserId = employeeService.deleteEmployee(userId);
 		if (Objects.nonNull(allEmployeeByUserId)) {
 			return new ResponseEntity(allEmployeeByUserId, HttpStatus.OK);
 		} else {

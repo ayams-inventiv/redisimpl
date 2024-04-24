@@ -16,4 +16,5 @@ public interface EmployeeService {
 	EmpDetails updateEmployeeDetails(Long userId, EmployeeDetailsDTO employeeDetailsDTO);
 	void evictAllEmployeeCache();
 	void evictEmployeeCache(Long userId);
+	EmpDetails deleteEmployee(Long userId);
 }
