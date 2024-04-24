@@ -1,5 +1,6 @@
 package com.redisimpl.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "EMPLOYEE_DETAILS")
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmpDetails {
+public class EmpDetails implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
